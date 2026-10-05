@@ -1,0 +1,25 @@
+[package]
+name = "flowarc"
+version = "0.1.0"
+description = "FlowArc — AUP 2.0 自适应深度工作节律助手（替代番茄钟）"
+edition = "2021"
+license = "MIT"
+
+[lib]
+name = "flowarc_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-global-shortcut = "2"
+tauri-plugin-single-instance = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+flowarc-core = { path = "../crates/flowarc-core" }
+# 传感层：空闲检测与前台窗口（三平台均可；权限被拒时自动降级）
+user-idle = "0.6"
+active-win-pos-rs = "0.9"
